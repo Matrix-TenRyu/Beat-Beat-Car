@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car.io - Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>Welcome to Car.io</h1>
+                <p>Enter your details to start racing</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="playerName">Your Name</label>
+                    <input type="text" id="playerName" required minlength="3" maxlength="15" 
+                           pattern="[A-Za-z0-9_]+" placeholder="Enter your name">
+                    <div id="errorMessage" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="countrySelect">Select Country</label>
+                    <div class="select-wrapper">
+                        <select id="countrySelect" required>
+                            <option value="">Choose your country</option>
+                            <option value="us">United States</option>
+                            <option value="gb">United Kingdom</option>
+                            <option value="fr">France</option>
+                            <option value="de">Germany</option>
+                            <option value="it">Italy</option>
+                            <option value="es">Spain</option>
+                            <option value="pt">Portugal</option>
+                            <option value="br">Brazil</option>
+                            <option value="jp">Japan</option>
+                            <option value="kr">South Korea</option>
+                            <option value="cn">China</option>
+                            <option value="in">India</option>
+                            <option value="ru">Russia</option>
+                            <option value="au">Australia</option>
+                            <option value="ca">Canada</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="start-button">
+                    <span>Start Racing</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"/>
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        class GameLogin {
+            constructor() {
+                this.loginForm = document.getElementById('loginForm');
+                this.nameInput = document.getElementById('playerName');
+                this.countrySelect = document.getElementById('countrySelect');
+                this.errorMessage = document.getElementById('errorMessage');
+                
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                this.loginForm.addEventListener('submit', (e) => this.handleSubmit(e));
+                this.nameInput.addEventListener('input', () => {
+                    if (this.validateName(this.nameInput.value)) {
+                        this.hideError();
+                    }
+                });
+            }
+
+            validateName(name) {
+                const nameRegex = /^[a-zA-Z0-9_]{3,15}$/;
+                if (!nameRegex.test(name)) {
+                    this.showError('Name must be 3-15 characters long and contain only letters, numbers, and underscores');
+                    return false;
+                }
+                return true;
+            }
+
+            showError(message) {
+                this.errorMessage.textContent = message;
+                this.errorMessage.style.display = 'block';
+            }
+
+            hideError() {
+                this.errorMessage.style.display = 'none';
+            }
+
+            handleSubmit(event) {
+                event.preventDefault();
+                
+                const name = this.nameInput.value.trim();
+                const country = this.countrySelect.value;
+                
+                if (!this.validateName(name)) {
+                    return;
+                }
+                
+                if (!country) {
+                    this.showError('Please select a country');
+                    return;
+                }
+
+                // Store player info and redirect
+                sessionStorage.setItem('playerName', name);
+                sessionStorage.setItem('playerCountry', country);
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize login
+        new GameLogin();
+    </script>
+</body>
+</html> 

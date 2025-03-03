@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car.io 3D Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="playerCount">Players: 0</div>
+    <div id="videoContainer">
+        <div id="videoPlayer"></div>
+        <div id="videoControls">
+            <input type="text" id="videoUrl" placeholder="Enter YouTube or Twitch URL">
+            <button id="loadVideo">Load Stream</button>
+            <button id="toggleVideo">Hide</button>
+        </div>
+    </div>
+    
+    <button id="showVideo" class="floating-button" style="display: none;">Show Video</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
